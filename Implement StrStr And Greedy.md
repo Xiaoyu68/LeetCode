@@ -61,3 +61,58 @@ public class Solution {
 - JAVA语言特性
 
   Java中String类型具有一个equals的方法可以用于判断两周字符串是否相等，但是这种相等又与运算符“==”所判断的“相等”有所不同。
+  
+  - 使用“==”判断的相等时指相同的内存地址，也就是同一个对象实例
+  - 使用equals方法判断的相等在不同的对象中实现不同，意义也不同
+  
+  Java的所有对象都继承自Object类，在Object类中实现的equals()方法如下：
+  
+  ```java
+  public boolean equals(Object obj) {
+    return (this == obj);
+  }
+  ```
+  
+  也就是等同于“==”，只有在内存一样的时候才返回true
+  
+  - String类重写了这个方法，重写后的方法首先判断地址是否一致，如果一致返回true，否则比较字符串的内容是否一致，如果内容一致返回true。因此，使用String类的equals方法是比较内容是否一致，而使用“==”是比较实例是否是同一个实例。
+  - StringBuilder类并没有重写equals方法，因此使用equals比较时，需要时同一个实例才会返回true。否则返回false。
+  
+  用“=”赋值时，如果内存中已经有这个字符串，就会直接将其地址给这个字符串，不会产生新的字符串。当我们使用“+”或者“concat“方法拼接字符串的时候，会创建一个新的字符串，占用新的内存空间，因此使用”==“判断时返回false。
+  
+  String不支持下标索引的方式访问，所以需要使用charAt(i)的方式访问对应位置的字符。同时也就没有办法使用下标的方式对String进行修改。String是一种不可变类，字符串一但生成就不能被改变。例如我们使用**‘+’进行字符串连接，会产生新的字符串，原串不会发生任何变化；使用replace()**进行替换某些字符的时候也是产生新的字符串，不会更改原有字符串。
+  
+  但是c++中是可变的
+  
+  Java中一切皆对象，null用来表示空对象，我们不能对空对象做任何操作，除了‘=’和‘==’；""不是空对象，是指向实实在在的堆内存的。只是这段内存中没有数据而已，可以对“”做任何对字符串的操作。例如取长度、拼接、替换、查找字符等。
+  
+  
+
+错误的贪心策略：
+
+> 从A出发，选择里A最近的点X，走到X，然后选择离X最近的点Y，走到Y...
+
+正确的贪心策略（Dijkstra算法）：
+
+> 使用hashmap distance = {} 记录所有点到起点A的最短距离。一开始 distance = {A: 0}，代表目前只有A离起点的最短距离我们是确定知道的。然后在Distance中的点和非distance中的点中找到最小的一对X,Y, 使得 distance[X] + (X到Y的直接连接距离) 最小。其中X在distance里（已经被确认找到了最短距离），Y不在distance里（还没有被确认找到了最短距离）。然后将Y加入distance，并把距离设为 distance[X] + (X到Y的直接连接距离）
+
+## 贪心算法：
+
+- 加油站问题：
+
+```java
+public class Solution {
+  public int canCompleteCircuit(int[] gas, int[] cost) {
+    if (gas == null || cost == null || gas.length == 0 || cost.length == 0) {
+      return -1;
+    }
+    
+    int sum = 0;
+    int total = 0;
+    int index = -1;
+    
+    for ()
+  }
+}
+```
+
