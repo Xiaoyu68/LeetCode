@@ -235,4 +235,162 @@ public class Solution {
 
   
 
+  - 跳跃游戏
+
+  ```java
+  // 给出一个非负整数数组，你最初定位在数组的第一个位置
+  // 数组中的每一个元素代表你在那个位置可以跳跃的最大长度
+  // 判断你是否能够到达数组的最后一个位置
+  /**
+  样例
+  样例 1
   
+  输入 : [2,3,1,1,4]
+  输出 : true
+  样例 2
+  
+  输入 : [3,2,1,0,4]
+  输出 : false
+  挑战
+  这个问题有两个方法，一个是贪心和 动态规划。
+  
+  贪心方法时间复杂度为O（N）。
+  
+  动态规划方法的时间复杂度为为O（n^2）。
+  
+  我们手动设置小型数据集，使大家可以通过测试的两种方式。这仅仅是为了让大家学会如何使用动态规划的方式解决此问题。如果您用动态规划的方式完成它，你可以尝试贪心法，以使其再次通过一次。
+  **/
+  public class Solution {
+    public boolean canJump(int[] A) {
+      if (A == null || A.length == 0) {
+        return false;
+      }
+      int farthest = A[0];
+      for (int i = 0; i < A.length; i++) {
+        if (i <= farthest && i + A[i] > farthest) {
+          farthest = i + A[i];
+        }
+      }
+      return farthest >= A.length - 1;
+    }
+  }
+  ```
+
+  - 跳跃游戏2
+
+  ```java
+  // 给出一个非负整数数组，你最初定位在数组的第一个位置。
+  // 数组中的每个元素代表你在那个位置可以跳跃的最大长度。　　　
+  // 你的目标是使用最少的跳跃次数到达数组的最后一个位置。
+  /**
+  输入 : [2,3,1,1,4]
+  输出 : 2
+  解释 : 到达最后位置的最小跳跃次数是2(从下标0到1跳跃1个距离长度，然后跳跃3个距离长度到最后位置)
+  **/
+  public class Solution {
+    public int jump(int[] A) {
+      if (A == null || A.length == 0) {
+        return -1;
+      }
+      
+      int start = 0, end = 0, count = 0;
+      while(end < A.length - 1) {
+        count++;
+        int farthest = end;
+        for (int i = start; i < end; i++) {
+          if (i + A[i] > farthest) {
+            farthest = A[i] + i; 
+          }
+        }
+        start = end + 1;
+        end = farthest;
+      }
+      return count;
+    }
+  }
+  ```
+
+  - 删除数字
+
+  ```java
+  // 给出一个字符串A，表示一个n位正整数，删除其中k位数字，使得剩余的数字仍然按照原来的顺序排列产生一个新的正整数
+  // 找到删除k个数字之后的最小正整数
+  /**
+  样例
+  样例 1：
+  
+  输入: A = "178542", k = 4
+  输出:"12"
+  样例 2：
+  
+  输入: A = "568431", k = 3
+  输出:"431"
+  **/
+  public class Solution {
+    /**
+    * @param A: A positive integer which has N digits, A is a string
+    * @param k: Remove k digits
+    * @return: A string
+    */
+    public String DeleteDigits(String A, int k) {
+      StringBuffer sb = new StringBuffer(A);
+      int i, j;
+      for (i = 0; i < k; i++) {
+        for(j = 0; j < A.length() - 1 && A.charAt(i) < A.charAt(i + 1); j++) {}
+        sb.delete(j, j + 1);
+      }
+      while (sb.length() > 1 && sb.charAt(0) == '0') {
+        sb.delete(0, 1);
+      }
+      
+      return sb.toString;
+    }
+  }
+  ```
+
+  - 任务计划
+
+  ```java
+  //给定一个字符串，表示CPU需要执行的任务。 这个字符串由大写字母A到Z构成，不同的字母代表不同的任务。完成任务不需要按照给定的顺序。 每项任务都可以在一个单位时间内被完成。 在每个单位时间，CPU可以选择完成一个任务或是不工作。
+  
+  //但是，题目会给定一个非负的冷却时间“n”，表示在执行两个“相同的任务”之间，必须至少有n个单位时间，此时CPU不能执行该任务，只能执行其他任务或者不工作。
+  
+  //您需要返回CPU完成所有给定任务所需的最少单位时间数。
+  /**
+  样例1
+  
+  输入: tasks = ['A','A','A','B','B','B'], n = 2
+  输出: 8
+  解释:
+  A -> B -> idle -> A -> B -> idle -> A -> B.
+  样例2
+  
+  输入: tasks = ['A','A','A','B','B','B'], n = 1
+  输出: 6
+  解释:
+  A -> B -> A -> B -> A -> B.
+  **/
+  public class Solution {
+    /**
+    * @param tasks: the given char array representing tasks CPU need to do
+    * @param n: the non-negative cooling interval
+    * @return: the least number of intervals the CPU will take to finish all the given tasks
+    */
+    public int leastInterval(char[] tasks, int n) {
+      int[]  c = new int[26];
+      for (int i = 0; i < tasks.length; i++) {
+        c[tasks[i] - 'A']++;
+      }
+      
+      Arrays.sort(c);
+      int i = 25;
+      while (i >= 0 && c[i] == c[25]) {
+        i--;
+      }
+      return Math.max((c[25] - 1) * (n + 1) - 25 + i, tasks.length);
+    }
+  }
+  ```
+
+  
+
