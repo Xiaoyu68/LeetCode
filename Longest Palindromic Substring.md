@@ -80,7 +80,7 @@ public class Solution {
     for (int i = n - 1; i >= 0; i--) {    //排除了与上面重复的计算
       for (int j = i + 2; j < n; j++) {
         isPalindrome[i][j] = isPalindrome[i + 1][j - 1] && s.charAt(i) == s.charAt(j);
-        if (j - i + 1 > longest) {
+        if (isPalindrome[i][j] && j - i + 1 > longest) {
           longest = j - i + 1;
           start = i;
         }
