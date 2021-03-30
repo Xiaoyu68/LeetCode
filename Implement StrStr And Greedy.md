@@ -392,5 +392,7 @@ public class Solution {
   }
   ```
 
+  需要背诵的贪心：
   
+  https://www.jiuzhang.com/qa/2099/
 
