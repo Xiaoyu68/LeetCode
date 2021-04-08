@@ -34,6 +34,11 @@ public class Solution {
     }
     
     int targetCode = 0;
+    for (int i = 0; i < target.length(); i++) {
+      targetCode = targetCode * 31 + target.charAt(i);
+    }
+    
+    int hashcode = 0;
     for (int i = 0; i < source.length(); i++) {
       // abc + d
       hashCode = (hashCode * 31 + source.charAt(i)) % BASE;
@@ -51,9 +56,13 @@ public class Solution {
       
       if (hashCode == targetCode) {
         // 不能写成==
-        source.substring(i - m + 1, i + 1).equals(target);
+        if (source.substring(i - m + 1, i + 1).equals(target)) {
+          return i - m + 1;
+        }
       }
     }
+    
+    return -1;
   }
 }
 ```
@@ -297,7 +306,7 @@ public class Solution {
       while(end < A.length - 1) {
         count++;
         int farthest = end;
-        for (int i = start; i < end; i++) {
+        for (int i = start; i <= end; i++) {
           if (i + A[i] > farthest) {
             farthest = A[i] + i; 
           }
